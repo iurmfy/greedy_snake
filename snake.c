@@ -336,7 +336,7 @@ void snake_move(void)
     {
         if (temp->x == snk_head->x && temp->y == snk_head->y)
         {
-            printf("you died! your score final score is: %d \n", score);
+            printf("you died! your final score is: %d \n", score);
             /* 释放食物内存 */
             free(food);
             /* 释放蛇内存 */
