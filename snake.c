@@ -1,22 +1,17 @@
-/* ==================
- * GREEDY_SNAKE
- * 
- * BY IURMFYXUQ
- * 
- * IN 2021/8/29
- * 
- * USED CSFML
- * 
- * ==================
- * 
- * REMAKE IN 2022/8/7
- * 
- * USED SDL
- * ==================
+/*
+ *            DO YOU WHAT THE WANT TO PUBLIC LICENSE
+ *
+ * Everyone is permitted to copy and distribute verbatim or modified
+ * copies of this license document, and changing it is allowed as long
+ * as the name is changed.
+ *
+ *           DO YOU WHAT THE WANT TO PUBLIC LICENSE
+ *  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+ *
+ * 0. You just DO WHAT YOU WANT TO DO.
  */
 
 #include <stdbool.h>
-/* SDL support */
 #include <SDL.h>
 #include <SDL_timer.h>
 
