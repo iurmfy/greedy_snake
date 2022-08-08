@@ -1,4 +1,4 @@
-project(sdltest)
+project(greedySnake)
 
 find_package(SDL2 REQUIRED)
 
