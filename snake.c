@@ -44,7 +44,7 @@ enum snake_dir
 };
 
 /* 当前方向 */
-unsigned dir = 0;
+unsigned dir;
 
 /* 
  *实体位置坐标 
@@ -81,10 +81,10 @@ snk_body_entity *snk_head = NULL;
 snk_body_entity *snk_body = NULL;
 
 /* 蛇体长度 */
-unsigned snk_lenth = 4;
+unsigned snk_lenth;
 
 /* 分数 */
-unsigned score = 0;
+unsigned score;
 
 /* 绘制场景 */
 void draw_scnen(SDL_Renderer *renderer);
@@ -134,24 +134,29 @@ int main(int argc, char const *argv[])
         {
             switch (event.type)
             {
+                /* 得到按下键盘 */
+                #define KEY event.key.keysym.sym
                 /* 键盘按键按下检测 */
-                case SDL_KEYDOWN:  
-                    switch (event.key.keysym.sym)
+                case SDL_KEYDOWN:
+                    if (KEY == SDLK_w && dir != 0)
                     {
-                        /* wsad 上下左右 */
-                        case SDLK_w:
-                            dir = 3;
-                            break;
-                        case SDLK_s:
-                            dir = 0;
-                            break;
-                        case SDLK_a:
-                            dir = 1;
-                            break;
-                        case SDLK_d:
-                            dir = 2;
-                            break;
+                        dir = 3;
                     }
+                    else if (KEY == SDLK_s && dir != 3)
+                    {
+                        dir = 0;
+                    }
+                    else if (KEY == SDLK_a && dir != 2)
+                    {
+                        dir = 1;
+                    }
+                    else if (KEY == SDLK_d && dir != 1)
+                    {
+                        dir = 2;
+                    }
+                    
+                    /* 取消定义 */
+                    #undef KEY
                     break;
 
                 /* 退出 */
@@ -174,18 +179,6 @@ int main(int argc, char const *argv[])
     }
 
     // 蛇和食物就不free了反正就这么用到程序结束(doge)
-
-    //free(food);
-
-    /* 释放蛇内存 */
-    //snk_body_entity *temp = snk_head;
-    //for(int i = 0; i < snk_lenth; i++)
-    //{
-    //    temp = snk_head;
-    //    snk_head = temp->next_body;
-
-    //    free(temp);
-    //}
     
     /* SDL 清理 */
     SDL_DestroyRenderer(renderer);
@@ -242,6 +235,11 @@ void init_entity(void)
     /* 
      *初始化蛇体 
      */
+    snk_lenth = 4;
+    /* 方向 */
+    dir = 0;
+    /* 分数 */
+    score = 0;
 
     /* 当前开辟的位置 */
     snk_body_entity *temp;
@@ -343,10 +341,22 @@ void snake_move(void)
     {
         if (temp->x == snk_head->x && temp->y == snk_head->y)
         {
-            /* 长度恢复 */
-            snk_lenth = 4;
-            /* 方向恢复 */
-            dir = 0;
+            /* 释放食物内存 */
+            free(food);
+            /* 释放蛇内存 */
+            snk_body_entity *temp = snk_head;
+            for(int i = 0; i < snk_lenth; i++)
+            {
+                temp = snk_head;
+                snk_head = temp->next_body;
+
+                free(temp);
+            }
+            /* 将头指向空 */
+            snk_head = NULL;
+            /* 重新生成 */
+            init_entity();
+    
             /* 生成新食物 */
             food->x = rand() % WIDTH_BLOCK_COUNT;
             food->y = rand() % HIGHT_BLOCK_COUNT;
