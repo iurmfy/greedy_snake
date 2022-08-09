@@ -248,6 +248,8 @@ void init_entity(void)
         {
             /* 蛇头初始化 */
             snk_head = temp;
+            snk_head->x = rand() % WIDTH_BLOCK_COUNT;
+            snk_head->y = rand() % HIGHT_BLOCK_COUNT;
         }
         else
         {
@@ -258,8 +260,8 @@ void init_entity(void)
         /* 给其赋值 */
         temp->next_body = NULL;
 
-        temp->x = 0;
-        temp->y = 0;
+        temp->x = snk_head->x;
+        temp->y = snk_head->y;
 
         /* 准备下一个 */
         snk_body = temp;
@@ -356,8 +358,8 @@ void snake_move(void)
             /* 生成新食物 */
             food->x = rand() % WIDTH_BLOCK_COUNT;
             food->y = rand() % HIGHT_BLOCK_COUNT;
-            snk_head->x = 0;
-            snk_head->y = 0;
+            //snk_head->x = rand() % WIDTH_BLOCK_COUNT;
+            //snk_head->y = rand() % HIGHT_BLOCK_COUNT;
             break;
         }
 
