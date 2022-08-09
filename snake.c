@@ -15,11 +15,11 @@
 #include <SDL.h>
 #include <SDL_timer.h>
 
-/* 比例大小 */
+/* 长宽比例 */
 #define WIDTH_BLOCK_COUNT 50
 #define HIGHT_BLOCK_COUNT 40
 
-/* 倍数 */
+/* 尺寸大小 */
 #define BLOCK_SIZE 20
 
 /* 窗体尺寸 */
@@ -203,7 +203,7 @@ void draw_scnen(SDL_Renderer *renderer)
 
     for (int i = 0; i < snk_lenth; i++)
     {
-        SDL_Rect rect = {body->x * BLOCK_SIZE, body->y * BLOCK_SIZE, 20, 20};
+        SDL_Rect rect = {body->x * BLOCK_SIZE, body->y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE};
         SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
         SDL_RenderDrawRect(renderer, &rect);
         /* 填充 */
@@ -215,7 +215,7 @@ void draw_scnen(SDL_Renderer *renderer)
      * 绘制食物
      */
     
-    SDL_Rect rect = {food->x * BLOCK_SIZE, food->y * BLOCK_SIZE, 20, 20};
+    SDL_Rect rect = {food->x * BLOCK_SIZE, food->y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE};
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     SDL_RenderDrawRect(renderer, &rect);
     /* 填充 */
@@ -232,7 +232,7 @@ void init_entity(void)
      */
     snk_lenth = 4;
     /* 方向 */
-    dir = 0;
+    dir = rand()%4;
     /* 分数 */
     score = 0;
 
